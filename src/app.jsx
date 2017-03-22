@@ -9,7 +9,7 @@ import { Axios } from 'axios';
 const axios = new Axios();
 export default class App extends React.Component {
   getPokeLists() {
-    axios.get('http://pokeapi.co/api/v2/pokemon/?limit=811')
+    axios.get('https://pokeapi.co/api/v2/pokemon/?limit=811')
       .then(function(response) {
         console.log(response)
       });
