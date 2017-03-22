@@ -1,37 +1,30 @@
 import React from 'react';
 import '../styles/index.scss';
+import AppNavbar from './components/appnavbar';
+import PokeCard from './components/pokecard';
 import { Card, CardTitle, Navbar, NavItem, Button, Row, Col, Icon } from 'react-materialize';
+import { Axios } from 'axios';
+// Use Axios to fetch v2 api
 
+const axios = new Axios();
 export default class App extends React.Component {
+  getPokeLists() {
+    axios.get('http://pokeapi.co/api/v2/pokemon/?limit=811')
+      .then(function(response) {
+        console.log(response)
+      });
+  }
+  constructor() {
+    super();
+    this.getPokeLists();
+  }
   render() {
     return (
         <div>
-          <Row>
-            <Navbar brand='National Pokedex Viewer' right>
-              <NavItem href='/pokemon-list'>Change</NavItem>
-              <NavItem href='components.html'>Components</NavItem>
-            </Navbar>
-          </Row>
+          <AppNavbar></AppNavbar>
           <div className="container">
             <div className="row">
-              <div className="col s12 m4 l3">
-                <div className="card hide-on-small-only waves-effect waves-block waves-orange">
-                  <div className="card-image">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"/>
-                    <span className="card-title black-text"><span className="poke-number">#1</span>Bulbasaur</span>
-                  </div>
-                </div>
-                <div className="card horizontal hide-on-med-and-up waves-effect waves-block waves-orange">
-                  <div className="card-image">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"/>
-                  </div>
-                  <div className="card-stacked">
-                    <div className="card-content">
-                      <span className="card-title"><span className="poke-number">#1</span>Bulbasaur</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <PokeCard />
             </div>
           </div>
         </div>  
