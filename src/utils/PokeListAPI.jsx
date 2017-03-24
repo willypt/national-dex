@@ -48,12 +48,18 @@ export default {
       limit: limit
     };
     fetch(POKEDEX_QUERY, queryParam).then(function(result) {
+      if(!result.ok) {
+        throw Error("err")
+      }
       var pokemons = [];
       result.data.pokedex.pokemon.edges.forEach(function(edge) {
         pokemons.push(new Pokemon(edge));
       })
       PokeListActions.appendPokemonList(pokemons);
       console.log(result, pokemons);
-    }) 
+    }).catch(function(err) {
+      PokeListActions.showError();
+      console.log("err", err);
+    })
   }
 }

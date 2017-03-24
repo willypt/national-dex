@@ -8,40 +8,11 @@ import PokeListAPI from '../utils/PokeListAPI';
 import EventEmitter from 'events';
 import underscore from 'underscore';
 
-const LIMIT = 10;
-const fetch = require('graphql-fetch')('//pokeapi-graphiql.herokuapp.com/graphql');
-const QUERY = `
-  query FetchPokes($offset: Int!, $limit: Int!) {
-    pokedex {
-      id
-      pokemon(start: $offset, number: $limit) {
-        edges {
-          node {
-            national_id
-            name
-            types {
-              edges {
-                node {
-                  name
-                }
-              }
-            }
-            sprites {
-              edges {
-                node {
-                  modified
-                  image
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+const LIMIT = 5;
 
 var _loadAllPokemonDone = false;
+var _isError = false;
+var _isLoading = false;
 var _pokemonLists = [];
 var _pokemonViewedLists = [];
 var _types = [];
@@ -83,6 +54,12 @@ const PokeListStore = underscore.extend({}, EventEmitter.prototype, {
   getPage: function() {
     return _page
   },
+  isLoading: function() {
+    return _isLoading
+  },
+  isError: function() {
+    return _isError
+  },
   addChangeListener: function (callback) {
     this.on('change', callback);
   },
@@ -104,12 +81,17 @@ PokeListDispatcher.register(function (payload) {
     case PokeListActionTypes.APPEND_POKEMON_LIST:
       setPokemonLists(_pokemonLists.concat(action.data.pokemonArr));
       console.log("new pokemon lists", _pokemonLists, _page);
+      _isLoading = false;
       break;
     case PokeListActionTypes.FETCH_POKEMON_LIST:
+      _isLoading = true;
       var page = _page;
       PokeListAPI.fetchPokemonByOffset(page * LIMIT, LIMIT);
       var newPage = _page + 1;
       setPage(newPage);
+      break;
+    case PokeListActionTypes.SHOW_ERROR:
+      _isError = true;
       break;
     default:
       return true;

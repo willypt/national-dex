@@ -19,22 +19,11 @@ const Actions = {
 
     })
   },
+  showError: function() {
+    ActionsHelper.dispatch(PokeListActionTypes.SHOW_ERROR,{})
+  }
   
   //todo
-
-  //types is an array and has all classes as default value
-  filterPokemonByTypes(types) {
-    PokeListDispatcher.dispatch({
-      type: PokeListActionTypes.FILTER_POKEMON_BY_TYPES,
-      types
-    })
-  },
-
-  resetFilter: function() {
-    PokeListDispatcher.dispatch({
-      type: PokeListActionTypes.RESET_FILTER
-    })
-  }
 }
 
 export default Actions;

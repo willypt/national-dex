@@ -29,7 +29,7 @@ class Pokemon extends PokemonBaseRecord {
         if(keyA > keyB) return 1;
         return 0;
       });
-      sprite = pokemon.sprites.edges[0].node.image;
+      sprite = "//willypt.github.io" + pokemon.sprites.edges[0].node.image;
     } catch (exception) {
       console.log(exception)
     }
