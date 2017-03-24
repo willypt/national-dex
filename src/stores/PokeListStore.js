@@ -8,7 +8,7 @@ import PokeListAPI from '../utils/PokeListAPI';
 import EventEmitter from 'events';
 import underscore from 'underscore';
 
-const LIMIT = 20;
+const LIMIT = 10;
 const fetch = require('graphql-fetch')('//pokeapi-graphiql.herokuapp.com/graphql');
 const QUERY = `
   query FetchPokes($offset: Int!, $limit: Int!) {
@@ -45,7 +45,7 @@ var _loadAllPokemonDone = false;
 var _pokemonLists = [];
 var _pokemonViewedLists = [];
 var _types = [];
-var _page = 0;
+var _page = 0; //nextPage
 
 function setLoadAllPokemonDone(data) {
   _loadAllPokemonDone = data;
@@ -101,10 +101,16 @@ PokeListDispatcher.register(function (payload) {
   var action = payload.action;
 
   switch (action.actionType) {
-    case PokeListActionTypes.LOAD_POKEMON_LIST:
+    case PokeListActionTypes.APPEND_POKEMON_LIST:
+      setPokemonLists(_pokemonLists.concat(action.data.pokemonArr));
+      console.log("new pokemon lists", _pokemonLists, _page);
       break;
     case PokeListActionTypes.FETCH_POKEMON_LIST:
-      PokeListAPI.fetchPokemonByOffset(0, 10)
+      var page = _page;
+      PokeListAPI.fetchPokemonByOffset(page * LIMIT, LIMIT);
+      var newPage = _page + 1;
+      setPage(newPage);
+      break;
     default:
       return true;
   }

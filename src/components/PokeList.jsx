@@ -6,7 +6,9 @@ let pokedexOffset = 0;
 
 function getState() {
   return {
-    loadAllPokemonDone : PokeListStore.getLoadAllPokemonDone()
+    page: PokeListStore.getPage(),
+    loadAllPokemonDone : PokeListStore.getLoadAllPokemonDone(),
+    pokemonLists: PokeListStore.getPokemonLists()
   }
 }
 
@@ -14,10 +16,12 @@ class PokeList extends React.Component {
   constructor() {
     super();
     this.state = getState();
+    this._onChange = this._onChange.bind(this);
   }
   componentDidMount() {
     PokeListStore.addChangeListener(this._onChange)
-    PokeListActions.fetchPokemonList(0);
+    PokeListActions.fetchPokemonList();
+    PokeListActions.fetchPokemonList();
   }
   componentWillUnmount() {
     PokeListStore.removeChangeListener(this._onChange)

@@ -1,5 +1,6 @@
 import Fetch from 'graphql-fetch';
 import PokeListActions from '../actions/PokeListActions';
+import {Pokemon} from '../components/Pokemon';
 
 const fetch = new Fetch('//pokeapi-graphiql.herokuapp.com/');
 const POKEDEX_QUERY = `
@@ -26,6 +27,13 @@ const POKEDEX_QUERY = `
                 }
               }
             }
+            moves {
+              edges {
+                node {
+                  name
+                }
+              }
+            }
           }
         }
       }
@@ -40,8 +48,12 @@ export default {
       limit: limit
     };
     fetch(POKEDEX_QUERY, queryParam).then(function(result) {
-      
-      console.log(result);
+      var pokemons = [];
+      result.data.pokedex.pokemon.edges.forEach(function(edge) {
+        pokemons.push(new Pokemon(edge));
+      })
+      PokeListActions.appendPokemonList(pokemons);
+      console.log(result, pokemons);
     }) 
   }
 }

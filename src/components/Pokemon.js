@@ -18,7 +18,7 @@ const PokemonBaseRecord = Immutable.Record({
 class Pokemon extends PokemonBaseRecord {
   constructor(props) {
     let pokemon = props.node;
-    let pkdx_id = UtilFun.toTitleCase(pokemon.national_id);
+    let pkdx_id = pokemon.national_id;
     let name = UtilFun.toTitleCase(pokemon.name)
     let sprite = '';
     try {
