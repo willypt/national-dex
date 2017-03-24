@@ -3,6 +3,7 @@
 ### What's in it?
 
 * A simple React App which hits [PokeAPI GraphiQL](https://pokeapi-graphiql.herokuapp.com/) and serve it as tiles.
+* Supports three screen sizes. (Mobiles the best :grinning:)
 
 ### To run
 
