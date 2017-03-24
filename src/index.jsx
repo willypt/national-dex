@@ -3,16 +3,7 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import App from './app.jsx';
 
-import { ApolloClient, createNetworkInterface, ApolloProvider} from 'react-apollo';
-// Using Apollo to get Pokemon Detail via v1 api
-
-const pokeApiClient = new ApolloClient({
-  networkInterface: createNetworkInterface({
-    uri: 'https://pokeapi-graphiql.herokuapp.com'
-  })
-});
-
-render(<AppContainer><ApolloProvider client={pokeApiClient}><App/></ApolloProvider></AppContainer>, 
+render(<AppContainer><App/></AppContainer>, 
   document.querySelector("#app"));
 
 if (module && module.hot) {
@@ -20,9 +11,7 @@ if (module && module.hot) {
     const App = require('./app.jsx').default;
     render(
       <AppContainer>
-        <ApolloProvider client={pokeApiClient}>
-          <App/>
-        </ApolloProvider>
+        <App/>
       </AppContainer>,
       document.querySelector("#app")
     );

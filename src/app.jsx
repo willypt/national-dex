@@ -1,15 +1,8 @@
 import React from 'react';
 import '../styles/index.scss';
-import AppNavbar from './components/appnavbar';
-import PokeCard from './components/pokecard';
+import AppNavbar from './components/AppNavbar';
+import PokeList from './components/PokeList';
 import { Card, CardTitle, Navbar, NavItem, Button, Row, Col, Icon } from 'react-materialize';
-import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apollo'
-
-const client = new ApolloClient({
-  networkInterface: createNetworkInterface({
-    uri: '//pokeapi-graphiql.herokuapp.com'
-  })
-});
 
 export default class App extends React.Component {
   constructor() {
@@ -21,9 +14,7 @@ export default class App extends React.Component {
             <AppNavbar></AppNavbar>
             <div className="container">
               <div className="row">
-                <ApolloProvider client={client}>
-                  <PokeCard />
-                </ApolloProvider>
+                <PokeList />
               </div>
             </div>
         </div>  
