@@ -1,5 +1,7 @@
 # National Dex
 
+### Demo URL
+* [Heroku Link](https://national-pokedex-wpt.herokuapp.com/index.html)
 ### What's in it?
 
 * A simple React App which hits [PokeAPI GraphiQL](https://pokeapi-graphiql.herokuapp.com/) and serve it as tiles.
