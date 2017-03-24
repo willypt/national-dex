@@ -48,7 +48,8 @@ export default {
       limit: limit
     };
     fetch(POKEDEX_QUERY, queryParam).then(function(result) {
-      if(!result.ok) {
+      console.log(result);
+      if(result == null) {
         throw Error("err")
       }
       var pokemons = [];

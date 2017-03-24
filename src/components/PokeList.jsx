@@ -4,12 +4,12 @@ import PokeListStore from '../stores/PokeListStore';
 
 let pokedexOffset = 0;
 
-class ErrorDiv extends React.Component {
+
+class SnorlaxDiv extends React.Component {
   render () {
     return (
       <div className="row center-align">
           <div className="col s12"><img className="center-align" src="//willypt.github.io/media/img/143.png"/></div>
-          <div className="col s12" className="center-align">Snorlax is blocking your way. Refresh page to wake it!</div>          
         </div>
     );
   }
@@ -36,11 +36,22 @@ class Loading extends React.Component {
 }
 
 class PokeCard extends React.Component {
+  constructor() {
+    super();
+    this.instAndOpenModal = this.instAndOpenModal.bind(this)
+    this.render = this.render.bind(this);
+  }
+  instAndOpenModal() {
+    var pokemon = this.props.pokemon;
+    var s = $("#modal" + pokemon.pkdx_id).modal();
+    console.log(s);
+    s.modal('open');  
+  }
   render() {
     var pokemon = this.props.pokemon;
     return (
       <div className="col s12 m4 l3">
-        <a href={"#modal" + pokemon.pkdx_id}>
+        <a onClick={this.instAndOpenModal}>
           <div className="card hide-on-small-only waves-effect waves-block waves-orange">
             <div className="card-image">
               <img src={pokemon.sprite} />
@@ -65,7 +76,7 @@ class PokeCard extends React.Component {
             <pre>{JSON.stringify(pokemon, null, 2) }</pre>
           </div>
           <div className="modal-footer">
-            <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+            <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
           </div>
         </div>
 
@@ -83,7 +94,6 @@ function getState() {
     loadAllPokemonDone : PokeListStore.getLoadAllPokemonDone(),
     pokemonLists: PokeListStore.getPokemonLists(),
     isLoading: PokeListStore.isLoading(),
-    error: PokeListStore.isError()
   }
 }
 
@@ -117,7 +127,7 @@ class PokeList extends React.Component {
         })}
         {this.state.isLoading? <Loading /> : null}
         <a onClick={this.handleClick} className="col s12 waves-effect waves-light btn">Load More</a>
-        {this.state.error? <ErrorDiv />: null}
+        <SnorlaxDiv />
       </div>
     );
   }
