@@ -1,9 +1,9 @@
 import React from 'react';
 import PokeListActions from '../actions/PokeListActions';
 import PokeListStore from '../stores/PokeListStore';
+import TypesFilterDiv from './TypesFilterDiv';
 
 let pokedexOffset = 0;
-
 
 class SnorlaxDiv extends React.Component {
   render () {
@@ -139,6 +139,7 @@ class PokeList extends React.Component {
     var pokemonList = this.state.pokemonLists
     return (
       <div className="">
+        <TypesFilterDiv />
         {pokemonList.map(function(pokemon, index){
           return <PokeCard key={index} pokemon={pokemon}/>
         })}
