@@ -73,7 +73,24 @@ class PokeCard extends React.Component {
         <div id={"modal" + pokemon.pkdx_id} className="modal modal-fixed-footer">
           <div className="modal-content">
             <h4><span className="poke-number">#{pokemon.pkdx_id}</span>{pokemon.name}</h4>
-            <pre>{JSON.stringify(pokemon, null, 2) }</pre>
+            <div className="row">
+              <div className="col s12 center-align">
+                <img src={pokemon.sprite} />
+              </div>
+              <div className="col s12 center-align">
+                {pokemon.types.map(function(type, index) {
+                  return (<div className="chip" key={index}>{type}</div>)
+                })}
+              </div>
+              <div className="col s12">
+                  <ul className="collection with-header center-align">
+                    {pokemon.moves.map(function(move, index) {
+                      return <li className="collection-item" key={index}>{move}</li>
+                    })}
+                  </ul>
+              </div>
+            </div>
+            {/*<pre>{JSON.stringify(pokemon, null, 2) }</pre>*/}
           </div>
           <div className="modal-footer">
             <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>

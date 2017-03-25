@@ -1,7 +1,7 @@
 'use strict';
 
 import Immutable from 'immutable';
-import UtilFun from './utils';
+import ChangeCase from 'change-case';
 
 const PokemonBaseRecord = Immutable.Record({
   pkdx_id: 0,
@@ -19,7 +19,7 @@ class Pokemon extends PokemonBaseRecord {
   constructor(props) {
     let pokemon = props.node;
     let pkdx_id = pokemon.national_id;
-    let name = UtilFun.toTitleCase(pokemon.name)
+    let name = ChangeCase.titleCase(pokemon.name)
     let sprite = '';
     try {
       pokemon.sprites.edges.sort(function(a, b){
@@ -35,11 +35,11 @@ class Pokemon extends PokemonBaseRecord {
     }
     let types = [];
     pokemon.types.edges.forEach(function(type) {
-      types.push(type.node.name)
+      types.push(ChangeCase.titleCase(type.node.name))
     });
     let moves = [];
     pokemon.moves.edges.forEach(function(move) {
-      moves.push(move.node.name)
+      moves.push(ChangeCase.titleCase(move.node.name))
     })
     super({pkdx_id: pkdx_id, name: name, sprite: sprite, types: types, moves: moves});
   }  
